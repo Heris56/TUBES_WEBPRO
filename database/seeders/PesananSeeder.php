@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pesanan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class PesananSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Pesanan::factory()->count(5)->create();
     }
 }

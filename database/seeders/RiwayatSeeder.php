@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Riwayat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class RiwayatSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Riwayat::factory()->count(5)->create();
     }
 }

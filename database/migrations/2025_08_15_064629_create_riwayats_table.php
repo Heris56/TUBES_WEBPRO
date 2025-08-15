@@ -17,7 +17,7 @@ return new class extends Migration
 
             // Foreign keys
             $table->foreignId('id_pesanan')
-                ->constrained('pesanan', 'id_pesanan')
+                ->constrained('pesanans', 'id_pesanan')
                 ->cascadeOnDelete();
 
             $table->softDeletes();

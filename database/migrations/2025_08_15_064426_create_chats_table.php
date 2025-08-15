@@ -21,17 +21,17 @@ return new class extends Migration
             // Foreign keys
             $table->foreignId('id_umkm')
                 ->nullable()
-                ->constrained('umkm', 'id_umkm')
+                ->constrained('umkms', 'id_umkm')
                 ->cascadeOnDelete();
 
             $table->foreignId('id_pembeli')
                 ->nullable()
-                ->constrained('pembeli', 'id_pembeli')
+                ->constrained('pembelis', 'id_pembeli')
                 ->cascadeOnDelete();
-                
+
             $table->foreignId('id_kurir')
                 ->nullable()
-                ->constrained('kurir', 'id_kurir')
+                ->constrained('kurirs', 'id_kurir')
                 ->cascadeOnDelete();
 
             $table->string('receiver_type')->nullable();

@@ -20,15 +20,15 @@ return new class extends Migration
             // Foreign keys
             $table->foreignId('id_pembeli')
                 ->nullable()
-                ->constrained('pembeli', 'id_pembeli')
+                ->constrained('pembelis', 'id_pembeli')
                 ->cascadeOnDelete();
 
             $table->foreignId('id_produk')
                 ->nullable()
-                ->constrained('produk', 'id_produk')
+                ->constrained('produks', 'id_produk')
                 ->cascadeOnDelete();
 
-            $table->integer('id_batch'); 
+            $table->integer('id_batch');
             $table->timestamps();
         });
     }

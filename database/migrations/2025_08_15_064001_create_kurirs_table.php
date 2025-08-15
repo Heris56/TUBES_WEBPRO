@@ -17,7 +17,7 @@ return new class extends Migration
 
             // Foreign keys
             $table->foreignId('id_umkm')
-                ->constrained('umkm', 'id_umkm')
+                ->constrained('umkms', 'id_umkm')
                 ->cascadeOnDelete();
 
             $table->string('email', 255)->unique();

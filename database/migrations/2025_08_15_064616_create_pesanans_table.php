@@ -18,7 +18,7 @@ return new class extends Migration
 
             // Foreign keys
             $table->foreignId('id_keranjang')
-                ->constrained('keranjang', 'id_keranjang')
+                ->constrained('keranjangs', 'id_keranjang')
                 ->cascadeOnDelete();
 
             $table->date('histori_pesanan')->nullable();

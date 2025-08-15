@@ -32,4 +32,28 @@ class UmkmController extends Controller
             );
         }
     }
+
+    public function getById($id)
+    {
+        try {
+            $data = Umkm::findOrFail($id);
+            return response()->json(
+                [
+                    "message" => "Success get Umkm by id",
+                    "status" => "success",
+                    "data" => $data
+                ],
+                200
+            );
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    "message" => "Failed to get Umkm by id",
+                    "status" => "failed",
+                    "error" => $e->getMessage()
+                ],
+                500
+            );
+        }
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\UmkmController;
 use App\Http\Controllers\api\UlasanController;
 use Illuminate\Http\Request;
@@ -27,4 +28,8 @@ Route::prefix("ulasans")->group(function () {
     Route::post('/', [UlasanController::class, 'create']);
     Route::put('/{id}', [UlasanController::class, 'update']);
     Route::delete('/{id}', [UlasanController::class, 'destroy']);
+});
+
+Route::prefix("auth")->group(function () {
+    Route::post('/umkm', [AuthController::class, 'registerUmkm']);
 });

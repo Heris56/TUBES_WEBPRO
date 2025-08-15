@@ -12,7 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pesanans', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_pesanan');
+            $table->string('status_pesanan');
+            $table->float('total_belanja');
+
+            // Foreign keys
+            $table->foreignId('id_keranjang')
+                ->constrained('keranjang', 'id_keranjang')
+                ->cascadeOnDelete();
+
+            $table->date('histori_pesanan')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

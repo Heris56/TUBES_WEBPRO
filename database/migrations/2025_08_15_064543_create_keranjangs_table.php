@@ -12,7 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('keranjangs', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_keranjang');
+            $table->float('total')->nullable();
+            $table->integer('kuantitas')->nullable();
+            $table->string('status');
+
+            // Foreign keys
+            $table->foreignId('id_pembeli')
+                ->nullable()
+                ->constrained('pembeli', 'id_pembeli')
+                ->cascadeOnDelete();
+
+            $table->foreignId('id_produk')
+                ->nullable()
+                ->constrained('produk', 'id_produk')
+                ->cascadeOnDelete();
+
+            $table->integer('id_batch'); 
             $table->timestamps();
         });
     }

@@ -12,7 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('campaigns', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_campaign');
+            $table->string('title', 255);
+            $table->text('description')->nullable();
+            $table->string('image_url', 255)->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->string('status', 50)->default('Active')->nullable();
+
+            // Foreign keys
+            $table->foreignId('id_umkm')
+                ->constrained('umkm', 'id_umkm')
+                ->cascadeOnDelete();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -12,7 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('produks', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_produk');
+            $table->float('harga'); // could be decimal(10,2) if for currency
+            $table->integer('stok');
+            $table->float('berat');
+            $table->string('nama_barang');
+            $table->text('deskripsi_barang')->nullable();
+            $table->string('image_url')->nullable();
+            $table->string('tipe_barang')->nullable();
+
+            // Foreign keys
+            $table->foreignId('id_umkm')
+                ->constrained('umkm', 'id_umkm')
+                ->cascadeOnDelete();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

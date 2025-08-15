@@ -12,7 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('umkms', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_umkm');
+            $table->string('nama_lengkap');
+            $table->string('nomor_telepon');
+            $table->text('alamat')->nullable();
+            $table->string('username')->unique();
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('nama_usaha')->nullable();
+            $table->bigInteger('NIK_KTP')->unique();
+            $table->boolean('is_verified')->default(false);
+            $table->string('auth_code', 6)->nullable();
+            $table->string('reset_token')->nullable();
+            $table->bigInteger('reset_token_expiry')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -12,7 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('riwayats', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_riwayat');
+            $table->dateTime('tanggal');
+
+            // Foreign keys
+            $table->foreignId('id_pesanan')
+                ->constrained('pesanan', 'id_pesanan')
+                ->cascadeOnDelete();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

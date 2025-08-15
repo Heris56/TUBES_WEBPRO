@@ -12,7 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pembelis', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_pembeli');
+            $table->string('nama_lengkap', 255);
+            $table->string('nomor_telepon', 255);
+            $table->text('alamat')->nullable();
+            $table->string('username', 255);
+            $table->string('email', 255)->unique();
+            $table->string('password', 255);
+            $table->text('profileImg')->nullable();
+            $table->string('auth_code', 6)->nullable();
+            $table->boolean('is_verified')->default(false);
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

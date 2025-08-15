@@ -12,7 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chats', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id_chat');
+
+            $table->text('message');
+            $table->dateTime('sent_at')->useCurrent();
+            $table->boolean('is_read')->default(false);
+
+            // Foreign keys
+            $table->foreignId('id_umkm')
+                ->nullable()
+                ->constrained('umkm', 'id_umkm')
+                ->cascadeOnDelete();
+
+            $table->foreignId('id_pembeli')
+                ->nullable()
+                ->constrained('pembeli', 'id_pembeli')
+                ->cascadeOnDelete();
+                
+            $table->foreignId('id_kurir')
+                ->nullable()
+                ->constrained('kurir', 'id_kurir')
+                ->cascadeOnDelete();
+
+            $table->string('receiver_type')->nullable();
             $table->timestamps();
         });
     }

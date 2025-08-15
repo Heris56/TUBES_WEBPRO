@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookmarks', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_bookmark');
+
+            // Foreign keys
+            $table->foreignId('id_pembeli')
+                ->constrained('pembeli', 'id_pembeli')
+                ->cascadeOnDelete();
+            $table->foreignId('id_produk')
+                ->constrained('produk', 'id_produk')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

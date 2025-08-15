@@ -16,8 +16,17 @@ class CampaignFactory extends Factory
      */
     public function definition(): array
     {
+        $start = $this->faker->dateTimeBetween('-1 month', '+1 month');
+        $end = $this->faker->optional()->dateTimeBetween($start, '+2 months');
+
         return [
-            //
+            'title' => $this->faker->sentence(3),
+            'description' => $this->faker->optional()->paragraph,
+            'image_url' => $this->faker->optional()->imageUrl(400, 300),
+            'start_date' => $start->format('Y-m-d'),
+            'end_date' => $end ? $end->format('Y-m-d') : null,
+            'status' => $this->faker->randomElement(['Active', 'Inactive']),
+            'id_umkm' => \App\Models\Umkm::factory(),
         ];
     }
 }

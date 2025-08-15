@@ -22,7 +22,7 @@ Route::prefix("umkm")->group(function () {
 
 Route::prefix("ulasans")->group(function () {
     Route::get('/', [UlasanController::class, 'getAll']);
-    Route::get('produk/{id}', [UlasanController::class, 'getByIdProduk']);
+    Route::get('/produk/{id}', [UlasanController::class, 'getByIdProduk']);
     Route::get('/umkm/{id}', [UlasanController::class, 'getByIdUmkm']);
     Route::post('/', [UlasanController::class, 'create']);
     Route::put('/{id}', [UlasanController::class, 'update']);

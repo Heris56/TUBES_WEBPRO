@@ -15,7 +15,7 @@ class UmkmController extends Controller
             $data = Umkm::orderByDesc('created_at')->get();
             return response()->json(
                 [
-                    "message" => "Success get Umkm",
+                    "message" => "Success get all Umkm",
                     "status" => "success",
                     "data" => $data
                 ],
@@ -24,7 +24,7 @@ class UmkmController extends Controller
         } catch (Exception $e) {
             return response()->json(
                 [
-                    "message" => "Failed to get Umkm",
+                    "message" => "Failed to get all Umkm",
                     "status" => "failed",
                     "error" => $e->getMessage()
                 ],

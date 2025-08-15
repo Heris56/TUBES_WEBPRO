@@ -17,7 +17,11 @@ class UlasanFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id_pembeli' => \App\Models\Pembeli::factory(),
+            'id_produk' => \App\Models\Produk::factory(),
+            'username' => $this->faker->userName,
+            'ulasan' => $this->faker->paragraph,
+            'rating' => $this->faker->randomFloat(1, 1, 5),
         ];
     }
 }

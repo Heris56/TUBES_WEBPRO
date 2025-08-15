@@ -17,7 +17,8 @@ class RiwayatFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'tanggal' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'id_pesanan' => \App\Models\Pesanan::factory(),
         ];
     }
 }

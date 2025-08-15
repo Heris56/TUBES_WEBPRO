@@ -17,7 +17,10 @@ class PesananFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'status_pesanan' => $this->faker->randomElement(['Pending', 'Completed', 'Cancelled']),
+            'total_belanja' => $this->faker->randomFloat(2, 10, 1000),
+            'id_keranjang' => \App\Models\Keranjang::factory(),
+            'histori_pesanan' => $this->faker->optional()->date(),
         ];
     }
 }

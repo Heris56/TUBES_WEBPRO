@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('nama_usaha')->nullable();
-            $table->bigInteger('NIK_KTP')->unique();
+            $table->string('NIK_KTP', 16)->unique();
             $table->boolean('is_verified')->default(false);
             $table->string('auth_code', 6)->nullable();
             $table->string('reset_token')->nullable();
-            $table->bigInteger('reset_token_expiry')->nullable();
+            $table->dateTime('reset_token_expiry')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

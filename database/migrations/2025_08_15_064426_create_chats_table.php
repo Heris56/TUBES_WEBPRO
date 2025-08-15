@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chats', function (Blueprint $table) {
-            $table->increments('id_chat');
+            $table->id('id_chat');
 
             $table->text('message');
             $table->dateTime('sent_at')->useCurrent();

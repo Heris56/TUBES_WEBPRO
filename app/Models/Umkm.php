@@ -4,19 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Umkm extends Model
 {
     /** @use HasFactory<\Database\Factories\UmkmFactory> */
     use HasFactory;
+    use SoftDeletes;
 
-    // Primary key
     protected $primaryKey = 'id_umkm';
 
-    // Table name
-    protected $table = 'umkms';
-
-    // Mass assignable attributes
     protected $fillable = [
         'nama_lengkap',
         'nomor_telepon',

@@ -24,9 +24,12 @@ class Pembeli extends Model
         'profileImg',
         'auth_code',
         'is_verified',
+        'reset_token',
+        'reset_token_expiry',
     ];
 
     protected $casts = [
         'is_verified' => 'boolean',
+        'reset_token_expiry' => 'datetime',
     ];
 }

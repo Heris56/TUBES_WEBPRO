@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('email', 255)->unique();
             $table->string('password', 255);
             $table->text('profileImg')->nullable();
-            $table->string('auth_code', 6)->nullable();
             $table->boolean('is_verified')->default(false);
+            $table->string('auth_code', 6)->nullable();
+            $table->string('reset_token')->nullable();
+            $table->dateTime('reset_token_expiry')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

@@ -37,5 +37,5 @@ Route::prefix("auth/register")->group(function () {
 
 Route::prefix("auth/login")->group(function () {
     Route::post('/umkm', [AuthController::class, 'loginUmkm']);
-    // Route::post('/pembeli', [AuthController::class, 'loginPembeli']);
+    Route::post('/pembeli', [AuthController::class, 'loginPembeli']);
 });

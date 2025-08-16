@@ -31,5 +31,6 @@ Route::prefix("ulasans")->group(function () {
 });
 
 Route::prefix("auth")->group(function () {
-    Route::post('/umkm', [AuthController::class, 'registerUmkm']);
+    Route::post('register/umkm', [AuthController::class, 'registerUmkm']);
+    Route::post('login/umkm', [AuthController::class, 'loginUmkm']);
 });

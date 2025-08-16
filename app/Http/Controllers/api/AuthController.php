@@ -7,6 +7,7 @@ use App\Models\Umkm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -15,9 +16,70 @@ class AuthController extends Controller
         $user = 0;
     }
 
-    public function loginUmkm()
+    public function loginUmkm(Request $request)
     {
-        $user = 0;
+        try {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email',
+                'password' => 'required|string|min:6',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => $validator->errors()->first()
+                ], 400);
+            }
+
+            $email = strtolower($request->email);
+            $password = $request->password;
+
+            $user = Umkm::where('email', $email)->first();
+            if (!$user) {
+                return response()->json([
+                    'error' => 'Email tidak terdaftar'
+                ], 401);
+            }
+
+            if (!Hash::check($password, $user->password)) {
+                return response()->json([
+                    'error' => 'Kata sandi salah'
+                ], 401);
+            }
+
+            if (!$user->is_verified) {
+                $otp = rand(100000, 999999);
+                $user->auth_code = $otp;
+                $user->save();
+
+                try {
+                    Mail::raw("Kode OTP anda adalah $otp", function ($message) use ($user) {
+                        $message->to($user->email)
+                            ->from(env('MAIL_FROM_ADDRESS'))
+                            ->subject("Kode OTP Untuk Masuk ke Akun UMKMKU");
+                    });
+                } catch (\Exception $mailError) {
+                    return response()->json([
+                        'error' => 'Gagal mengirim email OTP: ' . $mailError->getMessage()
+                    ], 500);
+                }
+
+                return response()->json([
+                    'message' => 'OTP terkirim ke email anda',
+                    'id_umkm' => $user->id_umkm,
+                    'is_verified' => 0,
+                ], 200);
+            }
+
+            return response()->json([
+                'message' => 'Login berhasil',
+                'id_umkm' => $user->id_umkm,
+                'is_verified' => 1,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Gagal masuk: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function registerPembeli()
@@ -59,7 +121,7 @@ class AuthController extends Controller
                 'is_verified'       => false,
                 'auth_code'         => null,
                 'reset_token'       => null,
-                'reset_token_expiry'=> null,
+                'reset_token_expiry' => null,
             ]);
 
             return response()->json([

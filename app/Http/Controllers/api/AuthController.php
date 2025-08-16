@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pembeli;
 use App\Models\Umkm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -82,9 +83,51 @@ class AuthController extends Controller
         }
     }
 
-    public function registerPembeli()
+    public function registerPembeli(Request $request)
     {
-        $user = 0;
+        $validator = Validator::make($request->all(), [
+            'nama_lengkap'   => 'required|string|max:255',
+            'nomor_telepon'  => 'required|string|max:20',
+            'username'       => 'required|string|max:255|unique:pembelis,username',
+            'email'          => 'required|string|email|max:255|unique:pembelis,email',
+            'password'       => 'required|string|min:6',
+            'alamat'         => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'status'  => 'failed',
+                'errors'  => $validator->errors()
+            ], 400);
+        }
+
+        try {
+            $pembeli = Pembeli::create([
+                'nama_lengkap'      => $request->nama_lengkap,
+                'nomor_telepon'     => $request->nomor_telepon,
+                'username'          => $request->username,
+                'email'             => $request->email,
+                'password'          => Hash::make($request->password),
+                'alamat'            => $request->alamat ?? null,
+                'is_verified'       => false,
+                'auth_code'         => null,
+                'reset_token'       => null,
+                'reset_token_expiry' => null,
+            ]);
+
+            return response()->json([
+                'message' => 'Pembeli registered successfully',
+                'status'  => 'success',
+                'data'    => $pembeli
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to register Pembeli',
+                'status'  => 'failed',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function registerUmkm(Request $request)

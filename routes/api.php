@@ -41,3 +41,5 @@ Route::prefix('auth')->group(function () {
         // Route::post('/reset-password', [AuthController::class, 'resetPasswordPembeli']);
     });
 });
+
+Route::post('/login', [AuthController::class, 'login']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Pembeli;
 use App\Models\Umkm;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -242,5 +243,9 @@ class AuthController extends Controller
         }
     }
 
-    
+    use HttpResponses;
+    public function login(Request $request)
+    {
+        return 'Login success';
+    }
 }

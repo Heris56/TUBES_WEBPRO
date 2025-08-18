@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Pembeli;
 use App\Models\Umkm;
+use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -248,7 +249,25 @@ class AuthController extends Controller
     public function register(StoreUserRequest $request)
     {
         $request->validated($request->all());
-        return 'Login success';
+
+        $user = User::create([
+            'nama_lengkap' => $request->nama_lengkap,
+            'nomor_telepon'     => $request->nomor_telepon,
+            'username'          => $request->username,
+            'email'             => $request->email,
+            'password'          => Hash::make($request->password),
+            'nik'           => $request->nik,
+            'alamat'            => $request->alamat ?? null,
+            'nama_usaha'        => $request->nama_usaha ?? null,
+            'is_verified'       => false,
+            'auth_code'         => null,
+            'reset_token'       => null,
+            'reset_token_expiry' => null,
+        ]);
+        return $this->success([
+            'user' => $user,
+            'token' => $user->createToken('API token of ' . $user->name)->plainTextToken
+        ]);
     }
 
     public function login(StoreUserRequest $request)

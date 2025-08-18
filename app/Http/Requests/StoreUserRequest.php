@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Doctrine\Inflector\Rules\English\Rules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -26,9 +25,15 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'nama_lengkap' => ['required', 'string', 'max:255'],
+            'nomor_lengkap' => ['required', 'string', 'max:20'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
+            'role' => ['required'],
+            'nama_usaha' => ['nullable', 'srting', 'max:255'],
+            'nik' => ['nullable', 'digits:16', 'unique:users,NIK_KTP'],
         ];
     }
 }

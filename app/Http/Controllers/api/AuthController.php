@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Pembeli;
 use App\Models\Umkm;
 use App\Traits\HttpResponses;
@@ -244,7 +245,13 @@ class AuthController extends Controller
     }
 
     use HttpResponses;
-    public function login(Request $request)
+    public function register(StoreUserRequest $request)
+    {
+        $request->validated($request->all());
+        return 'Login success';
+    }
+
+    public function login(StoreUserRequest $request)
     {
         return 'Login success';
     }

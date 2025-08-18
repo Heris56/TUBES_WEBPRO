@@ -14,7 +14,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'nama_lengkap' => ['required', 'string', 'max:255'],
-            'nomor_lengkap' => ['required', 'string', 'max:20'],
+            'nomor_telepon' => ['required', 'string', 'max:20'],
             'alamat' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'email' => ['required', 'string', 'max:255', 'unique:users'],

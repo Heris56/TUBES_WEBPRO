@@ -13,12 +13,6 @@ Route::get('/user', function (Request $request) {
 Route::prefix("umkm")->group(function () {
     Route::get('/', [UmkmController::class, 'getAll']);
     Route::get('/{id}', [UmkmController::class, 'getById']);
-    Route::post('/registrasi-umkm', [UmkmController::class, 'register']);
-    Route::post('/masuk-umkm', [UmkmController::class, 'login']);
-    Route::post('/forgot-password', [UmkmController::class, 'forgotPassword']);
-    Route::post('/reset-password', [UmkmController::class, 'resetPassword']);
-    Route::post('/verifikasi-otp', [UmkmController::class, 'verifikasiOtp']);
-    Route::post('/kirim-ulang-otp', [UmkmController::class, 'kirimUlangOtp']);
 });
 
 Route::prefix("ulasans")->group(function () {
@@ -30,12 +24,20 @@ Route::prefix("ulasans")->group(function () {
     Route::delete('/{id}', [UlasanController::class, 'destroy']);
 });
 
-Route::prefix("auth/register")->group(function () {
-    Route::post('/umkm', [AuthController::class, 'registerUmkm']);
-    Route::post('/pembeli', [AuthController::class, 'registerPembeli']);
-});
+Route::prefix('auth')->group(function () {
+    // UMKM
+    Route::prefix('umkm')->group(function () {
+        Route::post('/register', [AuthController::class, 'registerUmkm']);
+        Route::post('/login', [AuthController::class, 'loginUmkm']);
+        // Route::post('/forgot-password', [AuthController::class, 'forgotPasswordUmkm']);
+        // Route::post('/reset-password', [AuthController::class, 'resetPasswordUmkm']);
+    });
 
-Route::prefix("auth/login")->group(function () {
-    Route::post('/umkm', [AuthController::class, 'loginUmkm']);
-    Route::post('/pembeli', [AuthController::class, 'loginPembeli']);
+    // Pembeli
+    Route::prefix('pembeli')->group(function () {
+        Route::post('/register', [AuthController::class, 'registerPembeli']);
+        Route::post('/login', [AuthController::class, 'loginPembeli']);
+        // Route::post('/forgot-password', [AuthController::class, 'forgotPasswordPembeli']);
+        // Route::post('/reset-password', [AuthController::class, 'resetPasswordPembeli']);
+    });
 });

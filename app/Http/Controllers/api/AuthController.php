@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Pembeli;
 use App\Models\Umkm;
@@ -270,7 +271,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(StoreUserRequest $request)
+    public function login(LoginUserRequest $request)
     {
         return 'Login success';
     }

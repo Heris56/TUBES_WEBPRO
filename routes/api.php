@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\ProdukController;
 use App\Http\Controllers\api\UmkmController;
 use App\Http\Controllers\api\UlasanController;
 use Illuminate\Http\Request;
@@ -42,5 +43,13 @@ Route::prefix('auth')->group(function () {
     });
 });
 
+// Public Routes
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+
+
+// Protected Routes
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('/produk', ProdukController::class);
+    Route::post('/logout', [AuthController::class, 'logout']);
+});

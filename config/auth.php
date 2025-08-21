@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'umkms' => [
+            'driver' => 'session',
+            'provider' => 'umkms',
+        ],
+        'pembelis' => [
+            'driver' => 'session',
+            'provider' => 'pembelis',
+        ],
     ],
 
     /*
@@ -63,6 +71,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'umkms' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Umkm::class),
+        ],
+        'pembelis' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Pembeli::class),
         ],
 
         // 'users' => [
@@ -94,6 +110,18 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'umkms' => [
+            'provider' => 'umkms',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'pembelis' => [
+            'provider' => 'pembelis',
+            'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],

@@ -83,18 +83,11 @@ class AuthController extends Controller
         }
     }
 
-    public function loginUmkm(Request $request)
+    public function loginUmkm(LoginUserRequest $request)
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required|string|min:6',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'error' => $validator->errors()->first()
-                ], 400);
+            if (!Auth::attempt($request->only('email', 'password'))) {
+                return $this->error('', 'Invalid credentials', 401);
             }
 
             $email = strtolower($request->email);

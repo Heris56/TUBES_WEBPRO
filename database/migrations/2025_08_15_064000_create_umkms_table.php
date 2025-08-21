@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('reset_token')->nullable();
             $table->dateTime('reset_token_expiry')->nullable();
 
+            $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });

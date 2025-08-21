@@ -43,6 +43,7 @@ Route::prefix('auth')->group(function () {
     });
 });
 
+##################################### UNDER CONSTRUCTION #####################################
 // Public Routes
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);

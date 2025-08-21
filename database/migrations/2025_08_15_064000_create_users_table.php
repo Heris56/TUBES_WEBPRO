@@ -35,6 +35,7 @@ return new class extends Migration
 
             $table->text('profileImg')->nullable();
 
+            $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });

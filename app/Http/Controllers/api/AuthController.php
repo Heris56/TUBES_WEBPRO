@@ -86,25 +86,11 @@ class AuthController extends Controller
     public function loginUmkm(LoginUserRequest $request)
     {
         try {
-            if (!Auth::attempt($request->only('email', 'password'))) {
+            if (!Auth::guard('umkms')->attempt($request->only('email', 'password'))) {
                 return $this->error('', 'Invalid credentials', 401);
             }
-
-            $email = strtolower($request->email);
-            $password = $request->password;
-
-            $user = Umkm::where('email', $email)->first();
-            if (!$user) {
-                return response()->json([
-                    'error' => 'Email tidak terdaftar'
-                ], 401);
-            }
-
-            if (!Hash::check($password, $user->password)) {
-                return response()->json([
-                    'error' => 'Kata sandi salah'
-                ], 401);
-            }
+            $user = Auth::guard('umkms')->user();
+            dd($user);
 
             if (!$user->is_verified) {
                 $otp = rand(100000, 999999);

@@ -70,15 +70,15 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
         ],
         'umkms' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Umkm::class),
+            'model' => App\Models\Umkm::class,
         ],
         'pembelis' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Pembeli::class),
+            'model' => App\Models\Pembeli::class,
         ],
 
         // 'users' => [

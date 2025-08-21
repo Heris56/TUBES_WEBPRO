@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Umkm extends Model
+class Umkm extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UmkmFactory> */
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable, HasApiTokens;
 
     protected $primaryKey = 'id_umkm';
 
@@ -34,4 +36,6 @@ class Umkm extends Model
         'is_verified' => 'boolean',
         'reset_token_expiry' => 'datetime',
     ];
+
+    protected $hidden = ['password', 'remember_token', 'auth_code'];
 }

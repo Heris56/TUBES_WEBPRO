@@ -90,7 +90,7 @@ class AuthController extends Controller
                 return $this->error('', 'Invalid credentials', 401);
             }
             $user = Auth::guard('umkms')->user();
-            dd($user);
+            // dd($user);
 
             if (!$user->is_verified) {
                 $otp = rand(100000, 999999);

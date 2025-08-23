@@ -104,27 +104,27 @@ class AuthController extends Controller
                             ->subject("Kode OTP Untuk Masuk ke Akun UMKMKU");
                     });
                 } catch (\Exception $mailError) {
-                    return response()->json([
-                        'error' => 'Gagal mengirim email OTP: ' . $mailError->getMessage()
-                    ], 500);
+                    return $this->success([
+                        'user' => $user,
+                        'token' => $user->createToken('API token of ' . $user->username)->plainTextToken,
+                    ], 'Gagal mengirim email OTP: ' . $mailError->getMessage(), 500);
                 }
 
-                return response()->json([
-                    'message' => 'OTP terkirim ke email anda',
-                    'id_umkm' => $user->id_umkm,
-                    'is_verified' => 0,
-                ], 200);
+                return $this->success([
+                    'user' => $user,
+                    'token' => $user->createToken('API token of ' . $user->username)->plainTextToken,
+                ], 'OTP terkirim ke email anda');
             }
 
-            return response()->json([
-                'message' => 'Login berhasil',
-                'id_umkm' => $user->id_umkm,
-                'is_verified' => 1,
-            ], 200);
+            return $this->success([
+                'user' => $user,
+                'token' => $user->createToken('API token of ' . $user->username)->plainTextToken,
+            ], 'Login berhasil');
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Gagal masuk: ' . $e->getMessage()
-            ], 500);
+            return $this->success([
+                'user' => $user,
+                'token' => $user->createToken('API token of ' . $user->username)->plainTextToken,
+            ], 'Gagal masuk: ' . $e->getMessage(), 500);
         }
     }
 
